@@ -1,7 +1,7 @@
 ---
-title       : 
-subtitle    : 
-author      : 
+title       : Use This App!
+subtitle    : or, my developing data products project
+author      : Mark Hanson
 job         : 
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
