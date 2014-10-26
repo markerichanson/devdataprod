@@ -37,7 +37,7 @@ A data frame with 32 observations on 11 variables.
 *** {name: left}
 
 We want an easy way to look at pairwise relationships, with or without a linear regression.
-We don't want to build something like pairs (to the right) to do this, but instead somethign dynamic.
+We don't want to build something like pairs (to the right) to do this, but instead something dynamic.
 *** {name: right}
 ```{r echo=FALSE}
 data(mtcars)
