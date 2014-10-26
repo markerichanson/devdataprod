@@ -33,7 +33,7 @@
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
     <h1>Use This App!</h1>
-    <h2>or, my developing data products project</h2>
+    <h2>or, here is my data products project</h2>
     <p>Mark Hanson<br/></p>
   </hgroup>
   <article></article>  
@@ -41,27 +41,109 @@
     
 
     <!-- SLIDES -->
-    <slide class="" id="slide-1" style="background:;">
+    <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>Read-And-Delete</h2>
+    <h2>The Data: mtcars</h2>
   </hgroup>
   <article data-timings="">
-    <ol>
-<li>Edit YAML front matter</li>
-<li>Write using R Markdown</li>
-<li>Use an empty line followed by three dashes to separate slides!</li>
-</ol>
+    <p>The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models).</p>
 
+<p>A data frame with 32 observations on 11 variables.</p>
+
+<pre><code>[, 1]   mpg  Miles/(US) gallon
+[, 2]    cyl     Number of cylinders
+[, 3]    disp    Displacement (cu.in.)
+[, 4]    hp  Gross horsepower
+[, 5]    drat    Rear axle ratio
+[, 6]    wt  Weight (lb/1000)
+[, 7]    qsec    1/4 mile time
+[, 8]    vs  V/S
+[, 9]    am  Transmission (0 = automatic, 1 = manual)
+[,10]    gear    Number of forward gears
+[,11]    carb    Number of carburetors
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>The Problem: Exploring (Potential) Linear Relationships</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;overflow:hidden'>
+  <p>We want an easy way to look at pairwise relationships, with or without a linear regression.
+We don&#39;t want to build something like pairs (to the right) to do this, but instead somethign dynamic.</p>
+
+</div>
+<div style='float:right;width:48%;overflow:hidden'>
+  <p><img src="assets/fig/unnamed-chunk-1-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The Approach: Shiny App With ggplot2 Rendering</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>(Note: div/border mismatch below appears to be a slidify  bug.) Here are snippets of the actual code which can be found at <a href="https://github.com/markerichanson/devdataprod_shiny">https://github.com/markerichanson/devdataprod_shiny</a>.</p>
+
+<div style='float:left;width:48%;overflow:hidden'>
+  <h1>ui.R</h1>
+
+<pre><code class="r">t&lt;-seq_along(mtcars)
+names(t)&lt;-names(mtcars)
+shinyUI(
+  fluidPage(
+    # Application title
+    titlePanel(&quot;Exploring Relationships Between mtcars Variables&quot;),
+    sidebarPanel(
+      h2(&#39;Instructions&#39;),
+      div(HTML(
+        &quot;Use this page to explore linear relationships between pairs of variables in the mtcars dataset.
+        Select a variable to use as the X axis and a variable for the Y axis.  Click the submit button and the selected variables will render to the right.
+        Optionally, check the check box to see details of the lm fit of the selected variables.&quot;
+        )),
+      h2(&#39;Controls:&#39;),
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;overflow:hidden'>
+  <h1>server.R</h1>
+
+<pre><code class="r">require(ggplot2)
+require(xtable)
+
+data(mtcars)
+
+shinyServer(
+  function(input, output) {
+
+     output$xAxis &lt;- renderPrint(names(mtcars)[[{as.numeric(input$xAxis)}]])
+     output$yAxis &lt;- renderPrint(names(mtcars)[[as.numeric(input$yAxis)]])
+     output$includeRegression &lt;- renderPrint({input$includeRegression})
+
+     output$plot&lt;-renderPlot({
+       .e &lt;- environment()
+</code></pre>
+
+</div>
   </article>
   <!-- Presenter Notes -->
 </slide>
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>Slide 2</h2>
+    <h2>Example</h2>
   </hgroup>
   <article data-timings="">
-    
+    <p><img src="assets/img/Example1.png" alt="alt text"></p>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -72,14 +154,26 @@
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Read-And-Delete'>
+        data-slide=1 title='The Data: mtcars'>
          1
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Slide 2'>
+        data-slide=2 title='The Problem: Exploring (Potential) Linear Relationships'>
          2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='The Approach: Shiny App With ggplot2 Rendering'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Example'>
+         4
       </a>
     </li>
   </ul>
